@@ -1,0 +1,12 @@
+Requirement or test ID,Given or starting state,Action,Expected result,Actual result,Evidence file,Pass fail or not run,Next action
+T1 Health,Fresh server,GET /health,200 {"ok":true},200 {"ok":true,"service":"studyswap"},test run 2026-11-17 (see README),Pass,None
+T2 List sessions,Fresh server,GET /sessions,200 S1/S2/S3 all booked 0,200 S1/S2/S3 booked 0 placesLeft 3/2/4,test run 2026-11-17,Pass,None
+T3 Book 3 on S1,S1 empty,POST /bookings x3 aliases owl42/fox11/bear7,3x 201 confirmed ids 1/2/3,3x 201 ids 1/2/3 confirmed,test run 2026-11-17,Pass,None
+T4 Overbooking,S1 full (3/3),POST /bookings alias wolf99,409 {"error":"session_full"} count stays 3,409 {"error":"session_full","message":"This session has no places left."} GET /sessions/S1 shows 3 bookings,test run 2026-11-17,Pass,None
+T5 Duplicate,S1 full owl42 already booked,POST /bookings alias owl42,409 duplicate_booking,409 {"error":"duplicate_booking"},test run 2026-11-17,Pass,None
+T6 Unknown session,Server running,POST /bookings sessionId S9,404 session_not_found,404 {"error":"session_not_found"},test run 2026-11-17,Pass,None
+T7 Blank alias,Server running,POST /bookings alias "",400 missing_field,400 {"error":"missing_field"},test run 2026-11-17,Pass,None
+T8 Cancel frees place,Booking 1 confirmed,POST /bookings/1/cancel then POST /bookings wolf99,200 cancelled then 201 confirmed,200 cancelled then 201 id 4 confirmed,test run 2026-11-17,Pass,None
+T9 Idempotent cancel,Booking 1 already cancelled,POST /bookings/1/cancel again,200 Already cancelled count unchanged,200 Already cancelled,test run 2026-11-17,Pass,None
+T10 Restart persistence,3 confirmed bookings on S1,Stop server (Ctrl+C) restart node server.js GET /sessions,Bookings still there booked 3,After restart S1 booked 3 placesLeft 0,test run 2026-11-17,Pass,None
+T11 Reset,Bookings exist,node reset.js then node server.js,All sessions booked 0,Reset done sessions seeded bookings empty,test run 2026-11-17,Pass,None

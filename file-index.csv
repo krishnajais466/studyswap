@@ -1,0 +1,15 @@
+File or URL,Purpose,Open or run steps,Version,Access checked
+README.md,Setup API contract entity diagram and AI disclosure,Open in VS Code or any text editor,v1,Yes 2026-11-17
+server.js,Express API: health list detail book cancel,node server.js then open http://localhost:3000,v1,Yes 2026-11-17
+db.js,SQLite schema seed and unique index,Loaded automatically by server.js,v1,Yes 2026-11-17
+reset.js,Reset database and re-seed S1/S2/S3,node reset.js,v1,Yes 2026-11-17
+package.json,Project metadata and Express dependency,npm install,v1,Yes 2026-11-17
+public/index.html,Simple browser page to list and book sessions,Open http://localhost:3000 after node server.js,v1,Yes 2026-11-17
+sessions.csv,Seed data for S1/S2/S3 (untouched source),Open in Excel or text editor,v1,Yes 2026-11-17
+evidence-log.csv,Real test results for all 11 tests,Open in Excel or text editor,v1,Yes 2026-11-17
+worksheet-01.csv,Checkpoint 01 stories and data model template,Open in Excel or text editor,v1,Yes 2026-11-17
+worksheet-02.csv,Checkpoint 02 API contract template,Open in Excel or text editor,v1,Yes 2026-11-17
+worksheet-03.csv,Checkpoint 03 journey template,Open in Excel or text editor,v1,Yes 2026-11-17
+worksheet-04.csv,Checkpoint 04 test template,Open in Excel or text editor,v1,Yes 2026-11-17
+worksheet-05.csv,Checkpoint 05 bug log template,Open in Excel or text editor,v1,Yes 2026-11-17
+worksheet-06.csv,Checkpoint 06 setup template,Open in Excel or text editor,v1,Yes 2026-11-17

@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>StudySwap</title></head>
+<body>
+<h1>StudySwap</h1>
+<p>Enter a fictional alias, then click Book. No real names or emails.</p>
+<div id="list"></div>
+<p id="message"></p>
+<script>
+async function load() {
+  const r = await fetch('/sessions');
+  const sessions = await r.json();
+  document.getElementById('list').innerHTML = sessions.map(s =>
+    `<p><b>${s.id} — ${s.title}</b> (${s.start}) — ${s.placesLeft} of ${s.capacity} places left
+    <input id="alias-${s.id}" placeholder="alias, e.g. owl42" />
+    <button onclick="book('${s.id}')">Book</button></p>`).join('');
+}
+async function book(id) {
+  const alias = document.getElementById('alias-' + id).value.trim();
+  const msg = document.getElementById('message');
+  if (!alias) { msg.textContent = 'Please type an alias first.'; return; }
+  const r = await fetch('/bookings', { method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sessionId: id, alias }) });
+  const data = await r.json();
+  msg.textContent = r.ok
+    ? 'Booked! Booking ID: ' + data.id + ' (' + data.alias + ' on ' + data.sessionId + ')'
+    : 'Failed: ' + (data.message || data.error);
+  load();
+}
+load();
+</script>
+</body></html>
